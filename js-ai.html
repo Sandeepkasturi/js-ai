@@ -1,0 +1,305 @@
+<body>
+    <div class="chatbot-container">
+        <div class="chat-header">
+            <h2>Friday-AI</h2>
+        </div>
+        <div class="chat-log" id="chat-log">
+            <!-- Chat log will be displayed here -->
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Type your message here...">
+            <button onclick="handleInput()">Send</button>
+        </div>
+    </div>
+<script>
+const inputField = document.getElementById('input-field'); // Replace 'input-field' with the ID of your input field
+const sendButton = document.getElementById('send-button'); // Replace 'send-button' with the ID of your send button
+// Define a function that will handle user input
+function clearChatLog() {
+const chatLog = document.getElementById("chat-log");
+chatLog.innerHTML = "";
+}
+
+// Questioning function
+ 
+
+ function processUserInput(userInput) {
+  const questionWords = ['what', 'when', 'why', 'how', 'can', 'have'];
+  const userWords = userInput.toLowerCase().split(' ');
+  const isQuestion = questionWords.some(word => userWords[0].startsWith(word));
+
+  if (isQuestion) {
+    const topic = userWords.slice(1).join(' ').trim();
+    const wikipediaUrl = `https://en.wikipedia.org/wiki/${topic}`;
+    const googleUrl = `https://www.google.com/search?q=${topic}`;
+
+    if (topic.length === 0) {
+      return "I'm sorry, I didn't catch that. Could you please provide more information?";
+    } else if (topic.toLowerCase().includes('wikipedia')) {
+      window.open(wikipediaUrl, '_blank');
+      return `Here's the Wikipedia page for ${topic}.`;
+    } else {
+      window.open(googleUrl, '_blank');
+      return `Here's what I found on Google for ${topic}.`;
+    }
+  } else {
+    const topic = userWords.join(' ').trim();
+    const wikipediaUrl = `https://en.wikipedia.org/wiki/${topic}`;
+    const googleUrl = `https://www.google.com/search?q=${topic}`;
+
+    if (topic.toLowerCase().includes('wikipedia')) {
+      window.open(wikipediaUrl, '_blank');
+      return `Here's the Wikipedia page for ${topic}.`;
+    } else {
+      window.open(googleUrl, '_blank');
+      return `Here's what I found on Google for ${topic}.`;
+    }
+  }
+}
+
+
+function handleInput() {
+  // Get the user's message from the input field
+  const userInput = document.getElementById("user-input").value;
+
+  // Check if the user's message includes the word "commands"
+  if (userInput.toLowerCase().includes("commands")) {
+    // Add the bot's response to the chat log without making the chatbot speak
+    const botResponse = "\n The commands are:\n 1: hello \n 2: help \n 3: who created you \n 4: open youtube \n 5: open google \n 6: can you write code \n 7: satellite view \n 8: calculate \n 9: give motivation \n 10: play music \n 11: open c compiler \n 12: open html compiler \n 13: open cpp compiler \n 14: open javascript compiler \n 15:i love you \n 16:what can you do \n 17:clear \n 18:play love songs \n 19:dance \n 20:what is news today \n 21:what is the time now \n 22:wishme \n 23:tell me a joke \n 24:restaurants near me \n 25:wikipedia \n 25:latest movies \n25:latest movies on Netflix \n25:questioning statements \n25:latest movies on Aha \n25:latest movies on Zee5 \n26:open parrot os \n27:open ubuntu os \n28:open terminal \nSome are under development";
+    const chatLog = document.getElementById("chat-log");
+    const botMessage = document.createElement("div");
+    botMessage.innerText = botResponse;
+    chatLog.appendChild(botMessage);
+  } else {
+    // Use an API or other means to generate a response based on the user's input
+    const botResponse = generateBotResponse(userInput);
+
+    // Add the bot's response to the chat log
+    const chatLog = document.getElementById("chat-log");
+    const botMessage = document.createElement("div");
+    botMessage.innerText = botResponse;
+    chatLog.appendChild(botMessage);
+
+    // Make the chatbot speak the response
+    const utterance = new SpeechSynthesisUtterance(botResponse);
+    window.speechSynthesis.speak(utterance);
+  }
+
+  // Clear the input field
+  document.getElementById("user-input").value = "";
+}
+
+// Define a function to generate a bot response based on the user's input
+function generateBotResponse(userInput) {
+// Use some logic to determine what the bot should say based on the user's input
+// For example, you could use conditional statements to handle different types of queries
+if (userInput.toLowerCase().includes("hello")) {
+    return "\n Hello, how can I assist you?";
+}
+else if (userInput.toLowerCase() === "clear" || userInput.toLowerCase() === "cls") {
+return clearChatLog();
+}
+else if(userInput.toLowerCase().includes("hi")){
+    return "Hai";
+}
+ else if (userInput.toLowerCase().includes("help")) {
+    return "\nSure, what do you need help with? commands ?";
+}
+else if (userInput.toLowerCase().includes("who created you")) {
+    return "\nI was Created on March 01, 2023 by Sandeep Kasturi. The Founder and CEO of Redeem Tech";
+}
+else if (userInput.toLowerCase().includes("what can you do")) {
+    return "\nAnything..";
+}
+else if (userInput.toLowerCase().includes("what is your name")) {
+    return "I am Friday. Nice to meet you";
+}
+else if (userInput.toLowerCase().includes("i love you") || userInput.toLowerCase().includes("love")) {
+    return "I am an AI I don't have feelings. But my creator Sandeep do have it you can ask him.'";
+}
+else if (userInput.toLowerCase().includes("how are you")) {
+    return "I'm doing well, thank you for asking!";
+}
+else if (userInput.toLowerCase().includes("open youtube")) {
+window.open("https://youtube.com/", "_blank");
+return "Opening Youtube..";
+}
+else if (userInput.toLowerCase().includes("open google")) {
+window.open("https://google.com/", "_blank");
+return "Opening Google..";
+}
+else if (userInput.toLowerCase().includes("give motivation")) {
+    return "\nSure, If you won't study. You got sucked in Life. HaHaHaHaHa..";
+    }
+else if (userInput.toLowerCase().includes("system info"))
+{
+window.open("php.html");
+return "ok";
+}
+else if(userInput.toLowerCase().includes("open parrot os")){
+window.open("https://www.onworks.net/runos/create-os.html", "_blank");
+return "Sure fetching servers."
+}
+else if(userInput.toLowerCase().includes("open terminal")){
+window.open("https://shell.cloud.google.com/?fromcloudshell=true&show=terminal", "_blank");
+return "Sure fetching servers."
+}
+else if(userInput.toLowerCase().includes("open ubuntu os")){
+window.open("https://www.onworks.net/runos/create-os.html", "_blank");
+return "Sure fetching servers."
+}
+else if (userInput.toLowerCase().includes("can you write code") || userInput.toLowerCase().includes("write code for")) {
+    confirm("If you don't mind, I can try to look up information on how to write code for you.");
+    window.location.href="https://useblackbox.io/search";
+    return "I'm sorry, but I'm not capable of writing code. But i can provide you space from. my BLACK BOX  friend";
+}
+else if (userInput.toLowerCase().includes("play love songs")  || userInput.toLowerCase().includes("play music")) {
+    confirm('should I continue ?');
+    window.open("https://wynk.in/music/album/love-today-telugu-original-motion-picture-soundtrack/sm_196589691323?q=top+telugu+latest+hit+songs","_blank");
+    return "Feel the music.";
+}
+else if (userInput.toLowerCase().includes("dance")  || userInput.toLowerCase().includes("do you want to dance")) {
+    confirm('should I continue ?');
+    window.open("https://wynk.in/music/song/boss-party/sm_196589812377_INS172223780?q=boss+party","_blank");
+    return "Get ready for Boss Party";
+    }
+else if (userInput.toLowerCase().includes("open c compiler")) {
+window.open("https://www.onlinegdb.com/online_c_compiler", "_blank");
+return "Opening C Compiler..";
+}
+else if (userInput.toLowerCase().includes("open cpp compiler")) {
+window.open("https://www.onlinegdb.com/online_c++_compiler", "_blank");
+return "Opening C++ Compiler..";
+}
+else if (userInput.toLowerCase().includes("open javascript compiler")) {
+    confirm('should I continue ?');
+    window.open("https://www.programiz.com/javascript/online-compiler/", "_blank");
+    return "here is it";
+}
+else if (userInput.toLowerCase().includes("open html compiler")) {
+    confirm('should I continue ?');
+    window.open("https://webeditor.w3spaces.com/", "_blank");
+    return "here is it";
+}
+else if (userInput.toLowerCase().includes("show satellite view") || userInput.toLowerCase().includes("satellite view")) {
+    window.open("https://satellites.pro/", "_blank");
+    return "Sure fetching satellite data from online.";
+}
+else if (userInput.toLowerCase().includes("calculate")) {
+    function sum() {
+      var a, b, operator, result;
+      a = parseFloat(prompt("Enter value 1:"));
+      b = parseFloat(prompt("Enter value 2:"));
+      operator = prompt("Enter the operator (+,-,*,/,%)");
+
+      switch (operator) {
+        case '+':
+          result = a + b;
+          break;
+        case '-':
+          result = a - b;
+          break;
+        case '*':
+          result = a * b;
+          break;
+        case '/':
+          result = a / b;
+          break;
+        case '%':
+          result = a % b;
+          break;
+        default:
+          result = "Invalid operator";
+      }
+
+      return "\nThe answer is " + result;
+    }
+
+    return sum();
+  }
+  else if (userInput.toLowerCase().includes("wish me")) {
+const now = new Date();
+const hour = now.getHours();
+if (hour >= 5 && hour < 12) {
+return "Good morning! Have a great day!";
+} else if (hour >= 12 && hour < 18) {
+return "Good afternoon! Hope you're having a great day!";
+} else if (hour >= 18 && hour < 22) {
+return "Good evening! Enjoy your evening!";
+} else {
+return "Hello! Hope you're doing well!";
+}
+}
+else if (userInput.toLowerCase().includes("what is the time now") || userInput.toLowerCase().includes("current time")) {
+var currentdate = new Date();
+var datetime = "Last Sync: " + currentdate.getDay() + "/" + currentdate.getMonth() 
++ "/" + currentdate.getFullYear() + " @ " 
++ currentdate.getHours() + ":" 
++ currentdate.getMinutes() + ":" + currentdate.getSeconds();
+return (currentdate.getHours()+ ":" + currentdate.getMinutes());
+} 
+else if (userInput.toLowerCase().includes("tell me a joke")) {
+const jokes = ["Why was the math book sad? Because it had too many problems.",
+"What do you get when you cross a snowman and a shark? Frostbite.",
+"Why did the tomato turn red? Because it saw the salad dressing.",
+"Why did the scarecrow win an award? Because he was outstanding in his field.",
+"What do you get when you cross a snowman and a vampire? Frostbite.",
+"How does a penguin build its house? Igloos it together.",
+"What did one toilet say to the other toilet? You look flushed.",
+"Why do fish live in saltwater? Because pepper makes them sneeze."];
+const index = Math.floor(Math.random() * jokes.length);
+return jokes[index];
+}
+else if (userInput.toLowerCase().includes("restaurants near me")) {
+const location = "your location"; // replace with actual user location
+window.open("https://www.google.com/maps/search/restaurants+near+${location}", '_blank');
+return "Here are some restaurants near you!";
+}
+else if (userInput.toLowerCase().includes("open compass")) {
+window.open("https://www.compass.com/", "_blank");
+return "Opening Compass..";
+}
+else if (userInput.toLowerCase().includes("wikipedia")) {
+  const topic = userInput.toLowerCase().replace('wikipedia', '').trim();
+  const url = `https://en.wikipedia.org/wiki/${topic}`;
+  window.open(url, '_blank');
+  return `Here's the Wikipedia page for ${topic}`;
+}
+else if (userInput.toLowerCase().includes("latest movies") || userInput.toLowerCase().includes("new movies")) {
+const url = 'https://movierulzhd.media/';
+window.open(url, '_blank');
+return "Here are some latest movies in theaters!";
+}
+else if (userInput.toLowerCase().includes("latest movies on Netflix") || userInput.toLowerCase().includes("new movies")) {
+const url = 'https://movierulzhd.media/genre/netflix/';
+window.open(url, '_blank');
+return "Here are some latest movies On Netflix";
+}
+else if (userInput.toLowerCase().includes("latest movies on aha") || userInput.toLowerCase().includes("new movies")) {
+const url = 'https://movierulzhd.media/genre/aha/';
+window.open(url, '_blank');
+return "Here are some latest movies On Aha Unlimited!";
+}
+else if (userInput.toLowerCase().includes("latest movies on Zee5") || userInput.toLowerCase().includes("new movies")) {
+const url = 'https://movierulzhd.media/genre/Zee5/';
+window.open(url, '_blank');
+return "Here are some latest movies On Zee5";
+}
+else if (userInput.toLowerCase().includes("what is news today") || userInput.toLowerCase().includes("latest news")) {
+const url = 'https://www.bbc.com/news';
+window.open(url, '_blank');
+return "Here's the latest news!";
+}
+else if (userInput.toLowerCase().includes("open camera") || userInput.toLowerCase().includes("camera")){
+// get the video element from the DOM
+return "we are impleminting code for it by using DOM in JAVASCRIPT";
+}
+else if (userInput.toLowerCase().includes("can ") || userInput.toLowerCase().includes("what ") || userInput.toLowerCase().includes("when ") || userInput.toLowerCase().includes("why ") || userInput.toLowerCase().includes("how ")){
+const response = processUserInput(userInput);
+return (response); // output:
+}
+else{
+    return "\nI'm sorry, I don't understand. I'm still learning Natural Language Processing to rephrase your query";
+}
+}
+</script></body>
